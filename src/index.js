@@ -92,7 +92,7 @@ class Game extends React.Component {
         desc = <span><span className="mark">{mark}</span> in {squareIndexToDesc(step.move)} square</span>;
       }
       return (
-        <li key={i}>
+        <li key={i} className={i === this.state.stepNumber ? 'current-step' : undefined}>
           <button className="history" onClick={() => this.jumpTo(i)}>{desc}</button>
         </li>
       );
