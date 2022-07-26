@@ -30,7 +30,11 @@ class Board extends React.Component {
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.getInitialState();
+  }
+
+  getInitialState() {
+    return {
       history: [
         {
           squares: Array(9).fill(null),
@@ -64,22 +68,23 @@ class Game extends React.Component {
     });
   }
 
+  restart() {
+    this.setState(this.getInitialState());
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, i) => {
-      let desc = "Game start";
-      if (i) {
-        const mark = step.squares[step.move];
-        desc = (
-          <span>
-            <span className="mark">{mark}</span> in{" "}
-            {squareIndexToDesc(step.move)} square
-          </span>
-        );
-      }
+      if (!i) return null;
+      const desc = (
+        <span>
+          <span className="mark">{step.squares[step.move]}</span> in{" "}
+          {squareIndexToDesc(step.move)} square
+        </span>
+      );
       return (
         <li
           key={i}
@@ -107,8 +112,15 @@ class Game extends React.Component {
             onClick={(i) => this.handleClick(i)}
           />
         </div>
-        <div className="game-info">
-          <div>{status}</div>
+        <div>
+          <div className="game-info">
+            <div>{status}</div>
+            {this.state.stepNumber > 0 && (
+              <button className="restart" onClick={() => this.restart()}>
+                Restart
+              </button>
+            )}
+          </div>
           <ol>{moves}</ol>
         </div>
       </div>

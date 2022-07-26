@@ -11,6 +11,7 @@ ul {
 .game {
   display: flex;
   flex-direction: row;
+  gap: 20px;
 }
 
 .game-board {
@@ -47,7 +48,9 @@ ul {
 }
 
 .game-info {
-  margin-left: 20px;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .history {
