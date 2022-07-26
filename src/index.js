@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { calculateWinner, squareIndexToDesc } from "./library";
+import { calculateDraw, calculateWinner, squareIndexToDesc } from "./library";
 import "./index.css";
 
 function Square(props) {
@@ -105,6 +105,8 @@ class Game extends React.Component {
     let status;
     if (winner) {
       status = "Winner: " + current.squares[winner[0]];
+    } else if (calculateDraw(current.squares)) {
+      status = "Draw!";
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }

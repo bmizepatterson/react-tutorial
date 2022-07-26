@@ -19,6 +19,10 @@ function calculateWinner(squares) {
   return null;
 }
 
+function calculateDraw(squares) {
+	return squares.every(square => square != null) && !calculateWinner(squares);
+}
+
 function squareIndexToDesc(index) {
   let row;
   if (index < 3) {
@@ -35,4 +39,4 @@ function squareIndexToDesc(index) {
   return `${row} ${column}`;
 }
 
-export { calculateWinner, squareIndexToDesc };
+export { calculateWinner, squareIndexToDesc, calculateDraw };
