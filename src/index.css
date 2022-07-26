@@ -8,10 +8,15 @@ ul {
   padding-left: 30px;
 }
 
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-board {
+  display: grid;
+  align-self: flex-start;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .status {
@@ -19,9 +24,9 @@ ul {
 }
 
 .square {
+  display: block;
   background: #fff;
   border: 1px solid #999;
-  float: left;
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
@@ -39,11 +44,6 @@ ul {
 
 .kbd-navigation .square:focus {
   background: #ddd;
-}
-
-.game {
-  display: flex;
-  flex-direction: row;
 }
 
 .game-info {
@@ -71,5 +71,5 @@ ul {
 }
 
 .current-step {
-	background-color: yellow;
+  background-color: yellow;
 }

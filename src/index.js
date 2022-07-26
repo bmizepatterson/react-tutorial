@@ -14,6 +14,7 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        key={"square-" + i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -21,25 +22,7 @@ class Board extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
+    return this.props.squares.map((_, i) => this.renderSquare(i));
   }
 }
 
@@ -89,11 +72,21 @@ class Game extends React.Component {
       let desc = "Game start";
       if (i) {
         const mark = step.squares[step.move];
-        desc = <span><span className="mark">{mark}</span> in {squareIndexToDesc(step.move)} square</span>;
+        desc = (
+          <span>
+            <span className="mark">{mark}</span> in{" "}
+            {squareIndexToDesc(step.move)} square
+          </span>
+        );
       }
       return (
-        <li key={i} className={i === this.state.stepNumber ? 'current-step' : undefined}>
-          <button className="history" onClick={() => this.jumpTo(i)}>{desc}</button>
+        <li
+          key={i}
+          className={i === this.state.stepNumber ? "current-step" : undefined}
+        >
+          <button className="history" onClick={() => this.jumpTo(i)}>
+            {desc}
+          </button>
         </li>
       );
     });
