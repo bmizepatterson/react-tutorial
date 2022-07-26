@@ -49,3 +49,23 @@ ul {
 .game-info {
   margin-left: 20px;
 }
+
+.history {
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  display: inline;
+  font-family: inherit;
+}
+
+.history:focus {
+  outline: none;
+}
+
+.history:hover {
+  text-decoration: underline;
+}
+
+.history .mark {
+  font-weight: bold;
+}

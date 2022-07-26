@@ -50,6 +50,7 @@ class Game extends React.Component {
       history: [
         {
           squares: Array(9).fill(null),
+          move: null,
         },
       ],
       stepNumber: 0,
@@ -66,7 +67,7 @@ class Game extends React.Component {
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
-      history: [...history, { squares }],
+      history: [...history, { squares, move: i }],
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
@@ -84,11 +85,15 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    const moves = history.map((step, move) => {
-      const desc = move ? `Go to move #${move}` : "Go to game start";
+    const moves = history.map((step, i) => {
+      let desc = "Game start";
+      if (i) {
+        const mark = step.squares[step.move];
+        desc = <span><span className="mark">{mark}</span> in {squareIndexToDesc(step.move)} square</span>;
+      }
       return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+        <li key={i}>
+          <button className="history" onClick={() => this.jumpTo(i)}>{desc}</button>
         </li>
       );
     });
@@ -141,4 +146,20 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function squareIndexToDesc(index) {
+  let row;
+  if (index < 3) {
+    row = "top";
+  } else if (index < 6) {
+    row = "middle";
+  } else {
+    row = "bottom";
+  }
+
+  const columns = ["left", "center", "right"];
+  const column = columns[index % 3];
+
+  return `${row} ${column}`;
 }
