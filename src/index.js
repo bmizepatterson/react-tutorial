@@ -4,8 +4,12 @@ import { calculateWinner, squareIndexToDesc } from "./library";
 import "./index.css";
 
 function Square(props) {
+  let className = "square";
+  if (props.winning) {
+    className += " winning";
+  }
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className={className} onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -16,6 +20,7 @@ class Board extends React.Component {
     return (
       <Square
         key={"square-" + i}
+        winning={this.props.winningSquares?.includes(i)}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -99,7 +104,7 @@ class Game extends React.Component {
 
     let status;
     if (winner) {
-      status = "Winner: " + winner;
+      status = "Winner: " + current.squares[winner[0]];
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
@@ -109,6 +114,7 @@ class Game extends React.Component {
         <div className="game-board">
           <Board
             squares={current.squares}
+            winningSquares={winner}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
